@@ -1,0 +1,507 @@
+openapi: 3.0.0
+info:
+  title: "API sobre la gestión de proyectos"
+  version: 1.0.0
+paths:
+  /projects:
+    get:
+      summary: "Obtener los proyectos"
+      responses:
+        200:
+          description: "Proyectos obtenidos correctamente"
+    post:
+      summary: "Crea un nuevo proyecto"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ID:
+                  type: integer
+                description:
+                  type: string
+                language:
+                  type: string
+                open:
+                  type: boolean
+      responses:
+        201:
+          description: "Proyecto creado correctamente"
+        500:
+          description: "Proyecto no creado"
+
+  /projects/{projectId}:
+    get:
+      summary: "Obtiene un proyecto por su ID"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Proyecto obtenido correctamente"
+    
+    put:
+      summary: "Actualiza un proyecto seleccionado por su ID"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ID:
+                  type: integer
+                description:
+                  type: string
+                language:
+                  type: string
+                open:
+                  type: boolean
+      responses:
+        200:
+          description: "Proyecto actualizado correctamente"
+    delete:
+      summary: "Elimina un proyecto seleccionado por su ID"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Proyecto eliminado correctamente"
+    
+  /projects/{projectId}/code:
+    get:
+      summary: "Obtiene el código del proyecto indicado"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200: 
+          description: "Código del proyecto obtenido correctamente"
+
+    post:
+      summary: "Crea un nuevo proyecto"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ID:
+                  type: integer
+                package:
+                  type: string
+                file:
+                  type: string
+      responses:
+        200:
+          description: "Código del proyecto creado correctamente"
+      
+  /projects/{projectId}/detail:
+    get:
+      summary: "Obtiene los detalles del proyecto indicado"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Detalles del proyecto obtenidos correctamente"
+    post:
+      summary: "Crea un detalle del projecto"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                content:
+                  type: string
+                type:
+                  type: string
+                budget:
+                  type: number
+      responses:
+        200:
+          description: "Detalles del proyecto creado correctamente"
+          
+  /projects/{projectId}/users:
+    get:
+      summary: "Obtiene los usuarios relacionados con el proyecto"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Usuarios relacionados con el proyecto obtenidos correctamente"
+    post:
+      summary: "Crea un nuevo usuario"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ID:
+                  type: integer
+                nick:
+                  type: string
+                name:
+                  type: string
+      responses:
+        201:
+          description: "Usuario creado correctamente"
+        500:
+          description: "Usuario no creado"
+
+  /projects/{projectId}/users/{userId}:
+    get:
+      summary: "Obtiene los usuarios indicado"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "userId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Usuarios indicado con relacion al proyecto obtenidos correctamente"
+    put:
+      summary: "Actualiza un usuario seleccionado por su ID"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "userId"
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ID:
+                  type: integer
+                nick:
+                  type: string
+                name:
+                  type: string
+      responses:
+        200:
+          description: "Usuario actualizado correctamente"
+    delete:
+      summary: "Elimina un proyecto seleccionado por su ID"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "userId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Usuario eliminado correctamente"
+          
+  /projects/{projectId}/users/{userId}/phone:
+    get:
+      summary: "Obtiene el telefono del usuario relacionado con el proyecto"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "userId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Telefono del usuarios relacionado con el proyecto obtenido         correctamente"
+    post:
+      summary: "Crea un nuevo telefono"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "userId"
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                type:
+                  type: string
+      responses:
+        201:
+          description: "Telefono creado correctamente"
+        500:
+          description: "Telefono no creado"
+    put:
+      summary: "Actualiza un telefono del usuario seleccionado"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "userId"
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                type:
+                  type: string
+      responses:
+        200:
+          description: "Telefono actualizado correctamente"
+    delete:
+      summary: "Elimina un telefono del usuario seleccionado"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "userId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Telefono eliminado correctamente"
+          
+  /projects/{projectId}/users/{userId}/blog:
+    get:
+        summary: "Obtiene los blogs relacionados con la id del usuario"
+        parameters:
+          - in: path
+            name: "projectId"
+            required: true
+            schema:
+              type: integer
+          - in: path
+            name: "userId"
+            required: true
+            schema:
+              type: integer
+        responses:
+          200:
+            description: "Blogs relacionados con el usuario obtenidos correctamente"
+    post:
+        summary: "Crea un nuevo blog"
+        parameters:
+          - in: path
+            name: "projectId"
+            required: true
+            schema:
+              type: integer
+          - in: path
+            name: "userId"
+            required: true
+            schema:
+              type: integer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  date:
+                    type: string
+        responses:
+          201:
+            description: "Blog creado correctamente"
+          500:
+            description: "Blog no creado"
+            
+  /projects/{projectId}/users/{userId}/blog/{blogId}:
+    get:
+      summary: "Obtiene el blog relacionados con su id del usuario"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "userId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "blogId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Blogs relacionados con el usuario obtenidos correctamente"
+    put:
+      summary: "Actualiza un blog del usuario seleccionado"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "userId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "blogId"
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                title:
+                  type: string
+                date:
+                  type: string
+      responses:
+        200:
+          description: "Blog actualizado correctamente"
+    delete:
+      summary: "Elimina un blog del usuario seleccionado"
+      parameters:
+        - in: path
+          name: "projectId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "userId"
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: "blogId"
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Blog eliminado correctamente"
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
